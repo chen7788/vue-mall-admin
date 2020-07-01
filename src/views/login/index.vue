@@ -36,7 +36,7 @@
             <span slot="prefix">
               <svg-icon icon-class="password" class="color-main" />
             </span>
-            <span slot="suffix">
+            <span slot="suffix" @click="showPwd">
               <svg-icon icon-class="eye" class="coloe-main" />
             </span>
           </el-input>
@@ -106,7 +106,7 @@ export default {
       loading: false,
       pwdType: 'password',
       login_center_bg,
-      dialogVisible: false
+      dialogVisible: false,
     }
   },
   created() {
@@ -128,23 +128,28 @@ export default {
       }
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
-        if (valid) {
-          this.loading = true
-          this.$store.dispatch('login', this.loginForm).then(() => {
-            this.loading = false
-            setCookie('username', this.loginForm.username, 15)
-            setCookie('password', this.loginForm.password, 15)
-            this.$router.push({ path: '/' })
-          }).catch(() => {
-            this.loading = false
-          })
-        } else {
-          console.log('参数验证不合法! ')
-          return false
-        }
-      })
-    },
+        this.$refs.loginForm.validate(valid => {
+          if (valid) {
+            // let isSupport = getSupport();
+            // if(isSupport===undefined||isSupport==null){
+            //   this.dialogVisible =true;
+            //   return;
+            // }
+            this.loading = true;
+            this.$store.dispatch('user/login', this.loginForm).then(() => {
+              this.loading = false;
+              // setCookie("username",this.loginForm.username,15);
+              // setCookie("password",this.loginForm.password,15);
+              this.$router.push({ path: this.redirect || '/' })
+            }).catch(() => {
+              this.loading = false
+            })
+          } else {
+            console.log('参数验证不合法！');
+            return false
+          }
+        })
+      },
     handleTry() {
       this.dialogVisible = true
     },

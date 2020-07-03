@@ -289,7 +289,7 @@ export default {
   top: 1px;
   width: 250px;
   height: 235px;
-  z-index: 1000;
+  z-index: 1;
 }
 .un-handle-layout {
   margin-top: 20px;

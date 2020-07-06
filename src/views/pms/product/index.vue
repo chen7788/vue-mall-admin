@@ -319,7 +319,7 @@ export default {
           label: "未审核"
         }
       ]
-    };
+    }
   }
 };
 </script>
